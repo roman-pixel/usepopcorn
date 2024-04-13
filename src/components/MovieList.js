@@ -1,14 +1,10 @@
-import { useState } from "react";
-import { tempMovieData } from "../data/moviesData";
 import { Movie } from "./Movie";
 
-export function MovieList() {
-  const [movies, setMovies] = useState(tempMovieData);
-
+export function MovieList({ movies, onSelectMovie }) {
   return (
-    <ul className="list">
+    <ul className="list list-movies">
       {movies?.map((movie) => (
-        <Movie movie={movie} key={movie.imdbID} />
+        <Movie movie={movie} key={movie.imdbID} onSelectMovie={onSelectMovie} />
       ))}
     </ul>
   );
