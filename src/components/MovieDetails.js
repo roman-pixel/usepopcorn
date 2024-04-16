@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import StarRating from "./StarRating";
 import { Loader } from "./Loader";
+import { useKey } from "../hooks/useKey";
 
 export function MovieDetails({
   apiKey,
@@ -12,6 +13,12 @@ export function MovieDetails({
   const [movie, setMovie] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [userRating, setUserRating] = useState("");
+
+  const countRef = useRef(0);
+
+  useEffect(() => {
+    if (userRating) countRef.current++;
+  }, [userRating]);
 
   const isWatched = watched.some((movie) => movie.imdbID === selectedId);
   const watchedUserRating = watched.find(
@@ -40,25 +47,14 @@ export function MovieDetails({
       imdbRating: Number(imdbRating),
       userRating,
       runtime: runtime.split(" ").at(0),
+      countRatingDecisions: countRef.current,
     };
 
     onAddWatched(newWathcedMovie);
     onCloseMovie();
   }
 
-  useEffect(() => {
-    function callback(e) {
-      if (e.code === "Escape") {
-        onCloseMovie();
-      }
-    }
-
-    document.addEventListener("keydown", callback);
-
-    return function () {
-      document.removeEventListener("keydown", callback);
-    };
-  }, [onCloseMovie]);
+  useKey("Escape", onCloseMovie);
 
   useEffect(() => {
     async function getMovieDetails() {
@@ -74,8 +70,7 @@ export function MovieDetails({
       setIsLoading(false);
     }
     getMovieDetails();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedId]);
+  }, [apiKey, selectedId]);
 
   useEffect(() => {
     if (!title) return;
