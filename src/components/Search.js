@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import { useKey } from "../hooks/useKey";
 
-export function Search({ query, setQuery }) {
+function Search({ query, setQuery }) {
   const inputEl = useRef(null);
 
   useKey("Enter", function () {
@@ -21,3 +21,5 @@ export function Search({ query, setQuery }) {
     />
   );
 }
+
+export default Search;

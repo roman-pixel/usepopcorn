@@ -1,18 +1,18 @@
 import { useEffect, useRef, useState } from "react";
 import StarRating from "./StarRating";
-import { Loader } from "./Loader";
+import Loader from "./Loader";
 import { useKey } from "../hooks/useKey";
+import { useMoviesDetails } from "../hooks/useMoviesDetails";
 
-export function MovieDetails({
+function MovieDetails({
   apiKey,
   selectedId,
   onCloseMovie,
   onAddWatched,
   watched,
 }) {
-  const [movie, setMovie] = useState({});
-  const [isLoading, setIsLoading] = useState(false);
   const [userRating, setUserRating] = useState("");
+  const { movie, isLoading } = useMoviesDetails(apiKey, selectedId);
 
   const countRef = useRef(0);
 
@@ -55,22 +55,6 @@ export function MovieDetails({
   }
 
   useKey("Escape", onCloseMovie);
-
-  useEffect(() => {
-    async function getMovieDetails() {
-      setIsLoading(true);
-
-      const res = await fetch(
-        `https://www.omdbapi.com/?apikey=${apiKey}&i=${selectedId}`
-      );
-
-      const data = await res.json();
-      setMovie(data);
-
-      setIsLoading(false);
-    }
-    getMovieDetails();
-  }, [apiKey, selectedId]);
 
   useEffect(() => {
     if (!title) return;
@@ -136,3 +120,5 @@ export function MovieDetails({
     </div>
   );
 }
+
+export default MovieDetails;

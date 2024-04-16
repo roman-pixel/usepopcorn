@@ -1,4 +1,4 @@
-export function Logo() {
+function Logo() {
   return (
     <div className="logo">
       <span role="img">🍿</span>
@@ -6,3 +6,5 @@ export function Logo() {
     </div>
   );
 }
+
+export default Logo;

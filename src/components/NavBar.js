@@ -1,6 +1,6 @@
-import { Logo } from "./Logo";
+import Logo from "./Logo";
 
-export function NavBar({ children }) {
+function NavBar({ children }) {
   return (
     <nav className="nav-bar">
       <Logo />
@@ -8,3 +8,5 @@ export function NavBar({ children }) {
     </nav>
   );
 }
+
+export default NavBar;

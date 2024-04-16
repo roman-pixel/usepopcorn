@@ -1,6 +1,16 @@
-export function WatchedMovie({ movie, onDeleteMovie }) {
+export function WatchedMovie({
+  movie,
+  onDeleteMovie,
+  onSelectMovie,
+  onSetShowCondition,
+}) {
   return (
-    <li>
+    <li
+      onClick={() => {
+        onSelectMovie(movie.imdbID);
+        onSetShowCondition(false);
+      }}
+    >
       <img src={movie.poster} alt={`${movie.title} poster`} />
       <h3>{movie.title}</h3>
       <div>
@@ -27,3 +37,5 @@ export function WatchedMovie({ movie, onDeleteMovie }) {
     </li>
   );
 }
+
+export default WatchedMovie;

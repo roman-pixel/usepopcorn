@@ -29,3 +29,5 @@ export function WatchedSummary({ watched }) {
     </div>
   );
 }
+
+export default WatchedSummary;

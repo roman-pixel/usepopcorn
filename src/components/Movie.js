@@ -1,6 +1,11 @@
-export function Movie({ movie, onSelectMovie }) {
+function Movie({ movie, onSelectMovie, onSetShowCondition }) {
   return (
-    <li onClick={() => onSelectMovie(movie.imdbID)}>
+    <li
+      onClick={() => {
+        onSelectMovie(movie.imdbID);
+        onSetShowCondition(true);
+      }}
+    >
       <img src={movie.Poster} alt={`${movie.Title} poster`} />
       <h3>{movie.Title}</h3>
       <div>
@@ -12,3 +17,5 @@ export function Movie({ movie, onSelectMovie }) {
     </li>
   );
 }
+
+export default Movie;

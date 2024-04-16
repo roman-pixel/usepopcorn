@@ -1,7 +1,9 @@
-export function ErrorMessage({ errorMessage }) {
+function ErrorMessage({ errorMessage }) {
   return (
     <p className="error">
       <span>⛔️</span> {errorMessage}
     </p>
   );
 }
+
+export default ErrorMessage;

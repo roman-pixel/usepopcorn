@@ -44,14 +44,12 @@ export function useMovies(query, KEY, callback) {
       return;
     }
 
-    // handleCloseMovie();
     fetchMovies();
 
     return function () {
       controller.abort();
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [KEY, query]);
+  }, [KEY, callback, query]);
 
   return { movies, isLoading, error };
 }
